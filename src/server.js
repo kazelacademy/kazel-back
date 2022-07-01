@@ -1,4 +1,5 @@
 const { join } = require('path');
+require('dotenv/config');
 
 const hbs = require('express-handlebars');
 const express = require('express');
@@ -21,7 +22,7 @@ server.set('view engine', 'handlebars');
 server.set('views', join(__dirname, 'views'));
 server.use(express.static(join(__dirname, '..', 'public')));
 
-server.use(express.urlencoded());
+server.use(express.urlencoded({extended: true}));
 server.use(express.json());
 server.use(routes);
 
@@ -30,7 +31,7 @@ async function startApp() {
   logger.info('Database connected');
 
   const port = process.env.PORT;
-  server.listen(port, () => logger.info(`Server listen on port ${port}`));
+  server.listen(port, () => logger.info(`Server listen on port ${port}`))
 }
 
 module.exports = {

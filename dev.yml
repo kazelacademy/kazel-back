@@ -1,18 +1,46 @@
 version: "3.1"
 
 services:
+  kazel:
+    build:
+      context: .
+      dockerfile: ./docker/dev/kazel/Dockerfile
+    container_name: kazel-backend
+    ports:
+      - 5000:3000
+    env_file:
+      - ./.env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    networks:
+      - kazel-network
+
   db:
     image: postgres
     restart: always
+    env_file:
+      - ./.env
     environment:
       POSTGRES_PASSWORD: "${DB_PASS:-root}"
+      POSTGRES_DB: "${DB_NAME:-kazelDB}"
     ports:
       - 5433:5432
     volumes:
       - /docker/postgres/data:/var/lib/postgresql/data
+    networks:
+      - kazel-network
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 5001:8080
+    networks:
+      - kazel-network
+
+networks:
+  kazel-network:
+    driver: bridge
