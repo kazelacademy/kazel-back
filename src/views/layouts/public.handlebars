@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page }} | {{ context.site }}</title>
+
+  <link rel="stylesheet" href="/css/tailwindcss/compiled.css">
+</head>
+
+<body class="min-h-screen bg-gradient-to-t from-zinc-900 to-zinc-800 text-gray-200 flex flex-col">
+
+  <header class="p-5 flex justify-center items-center">
+    {{> brand}}
+  </header>
+
+  <main class="flex-1 flex justify-center items-center container mx-auto">
+    {{{body}}}
+  </main>
+
+  {{> footer}}
+</body>
+
+</html>
