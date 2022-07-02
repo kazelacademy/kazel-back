@@ -27,7 +27,7 @@ server.use(express.json());
 server.use(routes);
 
 async function startApp() {
-  await database.authenticate();
+  await database.sync({force: true});
   logger.info('Database connected');
 
   const port = process.env.PORT;

@@ -13,3 +13,13 @@ exports.signUp = async (req = request, res = response) => {
 
   return goodJSON(res, result.data, StatusCodes.CREATED);
 };
+
+exports.verifyAccount = async (req = request, res = response) => {
+  const result = await service.verifyAccount(req.params.token);
+
+  if (result.error) {
+    return badJSON(res, result.error, result.statusCode);
+  }
+
+  return goodJSON(res, result.data);
+}

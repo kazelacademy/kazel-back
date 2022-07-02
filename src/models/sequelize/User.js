@@ -1,9 +1,18 @@
+const SequelizeSlugify = require('sequelize-slugify');
 const { DataTypes } = require('sequelize');
+
+const { userTypes } = require('../../constants/roles');
 const database = require('../../database');
 
 const User = database.define(
-  'User',
+  'users',
   {
+    id: {
+      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
+      primaryKey: true,
+      allowNull: false,
+    },
     firstname: {
       type: DataTypes.STRING(25),
       allowNull: false,
@@ -11,6 +20,10 @@ const User = database.define(
     lastname: {
       type: DataTypes.STRING(25),
       allowNull: false,
+    },
+    slug: {
+      type: DataTypes.STRING,
+      unique: true
     },
     email: {
       type: DataTypes.STRING(100),
@@ -21,7 +34,12 @@ const User = database.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    token: DataTypes.STRING /* one-time-use */,
+    roles: {
+      type: DataTypes.ARRAY(DataTypes.ENUM(Object.keys(userTypes))),
+      defaultValue: [userTypes.STUDENT],
+      allowNull: false,
+    },
+    token: /* one-time-use */ DataTypes.STRING,
     isVerified: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
@@ -32,10 +50,14 @@ const User = database.define(
     },
     unlockAt: DataTypes.STRING,
     accessFailedCount: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
   },
 );
+
+SequelizeSlugify.slugifyModel(User, {
+  source: ['firstname', 'lastname']
+});
 
 module.exports = User;

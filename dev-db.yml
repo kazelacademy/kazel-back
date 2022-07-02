@@ -4,16 +4,18 @@ services:
   db:
     image: postgres
     restart: always
+    env_file:
+      - ./.env
     environment:
-      POSTGRES_PASSWORD: root
+      POSTGRES_PASSWORD: "${DB_PASS:-root}"
+      POSTGRES_DB: "${DB_NAME:-kazelDB}"
     ports:
       - 5433:5432
     volumes:
-      - /data:/var/lib/postgresql/data
+      - /docker/postgres/data:/var/lib/postgresql/data
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 5001:8080
-
