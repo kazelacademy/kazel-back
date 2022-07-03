@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page }} | {{ context.site }}</title>
+
+  <link rel="stylesheet" href="/css/tailwindcss/compiled.css">
+</head>
+
+<body class="min-h-screen bg-zinc-900 text-gray-200 flex flex-col">
+
+  <header class="p-5">
+    <h2>{{ context.site }}</h2>
+  </header>
+
+  <main class="flex-1 container mx-auto">
+    {{{body}}}
+  </main>
+
+  <footer class="my-5">
+    <p class="text-center font-bold">Kazel academy</p>
+  </footer>
+</body>
+
+</html>
