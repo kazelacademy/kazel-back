@@ -8,6 +8,8 @@ const controller = require('../../controllers/api/AuthController');
  *     tags:
  *       - Auth
  *     summary: Registrar un usuario en Kazel
+ *     security:
+ *      - bearerAuthJWT: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -15,13 +17,13 @@ const controller = require('../../controllers/api/AuthController');
  *             $ref: '#/components/schemas/signUpInput'
  *     responses:
  *       201:
- *         description: Success response
+ *         description: Respuesta exitosa
  *         content:
  *           application/json:
  *             schema:
  *              $ref: '#/components/schemas/signUp201Output'
  *       400:
- *          description: Failure response
+ *          description: Respuesta con errores
  *          content:
  *            application/json:
  *              schema:
