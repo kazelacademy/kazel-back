@@ -27,26 +27,56 @@ exports.signUp = async (data) => {
 
     const token = generateToken()
     const password = await hash(data.password, 10);
-    const user = await User.create({ ...data, password, token });
+    const result = await User.create({ ...data, password, token });
+
+    const user = {
+      id: result.id,
+      slug: result.slug,
+      roles: result.roles,
+      email: result.email,
+      lastname: result.lastname,
+      firstname: result.firstname,
+      createdAt: result.createdAt,
+    };
 
     sendAccountVerificationEmail(user);
     return goodResult(user, StatusCodes.CREATED);
   } catch (error) {
-    logger.error('[AuthService][signUp]', { error });
+    logger.error('[AuthService][signUp]', error);
     return badResult(error.message);
   }
 };
 
 exports.verifyAccount = async (token) => {
   try {
-    const user = await User.findOne({ where: { token }});
+    const user = await User.findOne({ where: { token } });
 
     if (!user) {
-      return badResult(`token ${token} was not found`, StatusCodes.NOT_FOUND);
+      return badResult(`token not found`, StatusCodes.NOT_FOUND);
     }
 
     user.isVerified = true;
     user.token = null;
+
+    await user.save();
+    return goodResult('user verified');
+  } catch (error) {
+    logger.error('[AuthService][verifyAccount]', error);
+    return badResult(error.message);
+  }
+};
+
+exports.signin = async ({ email, password }) => {
+  try {
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return badResult(`user not found`, StatusCodes.NOT_FOUND);
+    }
+
+    if (!user.isVerified) {
+      return badResult(`user not verified`, StatusCodes.BAD_REQUEST);
+    }
 
     await user.save();
     return goodResult('user verified');

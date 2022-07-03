@@ -8,10 +8,10 @@ exports.goodJSON = (emitter, data, statusCode = 200) => {
   });
 };
 
-exports.badJSON = (emitter, error, statusCode = 500) => {
+exports.badJSON = (emitter, errors, statusCode = 500) => {
   emitter.status(statusCode).json({
+    errors: Array.isArray(errors) ? errors : [errors],
     message: getReasonPhrase(statusCode),
     statusCode,
-    error,
   });
 };

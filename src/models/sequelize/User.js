@@ -35,7 +35,7 @@ const User = database.define(
       allowNull: false,
     },
     roles: {
-      type: DataTypes.ARRAY(DataTypes.ENUM(Object.keys(userTypes))),
+      type: DataTypes.ARRAY(DataTypes.ENUM(Object.values(userTypes))),
       defaultValue: [userTypes.STUDENT],
       allowNull: false,
     },

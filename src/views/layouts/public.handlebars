@@ -10,14 +10,19 @@
   <link rel="stylesheet" href="/css/tailwindcss/compiled.css">
 </head>
 
-<body class="min-h-screen bg-gradient-to-t from-zinc-900 to-zinc-800 text-gray-200 flex flex-col">
+<body class="min-h-screen bg-gradient-to-t from-zinc-900 to-zinc-800 bg-wave text-gray-100 flex flex-col">
 
   <header class="p-5 flex justify-center items-center">
     {{> brand}}
   </header>
 
-  <main class="flex-1 flex justify-center items-center container mx-auto">
-    {{{body}}}
+  <main class="flex-1 flex justify-center gap-10 items-center container mx-auto">
+    <div class="w-3/4">
+      <img src="/svg/dev.svg" alt="developer" width="750" height="750">
+    </div>
+    <div class="w-1/2">
+      {{{body}}}
+    </div>
   </main>
 
   {{> footer}}
