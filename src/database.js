@@ -19,6 +19,12 @@ const database = new Sequelize(
       idle: 10000,
       acquire: 30000,
     },
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    },
   },
 );
 
