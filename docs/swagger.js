@@ -16,6 +16,10 @@ exports.openapiSpecification = swaggerJsdoc({
       {
         url: `http://localhost:${process.env.PORT}/api/${process.env.API_VERSION}`,
         description: 'Local server'
+      },
+      {
+        url: `https://kazel.herokuapp.com//api/${process.env.API_VERSION}`,
+        description: 'Staging server'
       }
     ],
     components: {
