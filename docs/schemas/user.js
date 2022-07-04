@@ -1,17 +1,19 @@
 exports.signUpInput = {
   type: 'object',
   required: [
-    'firstname',
-    'lastname',
     'email',
     'password',
+    'firstname',
+    'lastname',
   ],
   properties: {
     firstname: {
-      type: 'string'
+      type: 'string',
+      example: 'Nombre'
     },
     lastname: {
-      type: 'string'
+      type: 'string',
+      example: 'Apellido'
     },
     email: {
       type: 'string',
@@ -43,13 +45,13 @@ exports.signUp201Output = {
         },
         slug: {
           type: 'string',
-          example: 'nombre_apellido'
+          example: 'nombre-apellido'
         },
         roles: {
           type: 'array',
           items: {
             type: 'string',
-            example: 'estudiante'
+            example: 'student'
           },
         },
         email: {
@@ -58,11 +60,11 @@ exports.signUp201Output = {
         },
         firstname: {
           type: 'string',
-          example: 'nombre'
+          example: 'Nombre'
         },
         lastname: {
           type: 'string',
-          example: 'apellido'
+          example: 'Apellido'
         },
         createdAt: {
           type: 'string',

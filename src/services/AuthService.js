@@ -78,7 +78,7 @@ exports.signin = async ({ email, password }) => {
       return badResult(`user not verified`, StatusCodes.BAD_REQUEST);
     }
 
-    await user.save();
+
     return goodResult('user verified');
   } catch (error) {
     logger.error('[AuthService][verifyAccount]', error);

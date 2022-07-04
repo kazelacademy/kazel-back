@@ -1,4 +1,5 @@
 const swaggerJsdoc = require('swagger-jsdoc');
+require('dotenv/config');
 
 const user = require('./schemas/user');
 
@@ -13,7 +14,8 @@ exports.openapiSpecification = swaggerJsdoc({
     },
     servers: [
       {
-        url: 'http://localhost:5000/api/v1'
+        url: `http://localhost:${process.env.PORT}/api/${process.env.API_VERSION}`,
+        description: 'Local server'
       }
     ],
     components: {
@@ -21,9 +23,9 @@ exports.openapiSpecification = swaggerJsdoc({
         ...user,
       },
       securitySchemes: {
-        bearerAuthToken: {
+        bearerAuthJWT: {
           type: 'http',
-          schema: 'Bearer',
+          scheme: 'Bearer',
         },
       },
     },
